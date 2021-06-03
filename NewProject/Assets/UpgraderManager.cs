@@ -21,6 +21,15 @@ public class UpgraderManager : MonoBehaviour
 
     private void Start()
     {
+        try
+        {
+            LoadProgression();
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("First Time Total Point");
+        }        
         UpdateTotalPoint();
         CheckPoints();
     }
@@ -32,6 +41,10 @@ public class UpgraderManager : MonoBehaviour
             totalPoint += 250;
             UpdateTotalPoint();
             CheckPoints();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            PlayerPrefs.DeleteAll();
         }
     }
 
@@ -53,5 +66,17 @@ public class UpgraderManager : MonoBehaviour
     public void UpdateTotalPoint()
     {
         _totalPointsText.text = "Total Points: " + totalPoint.ToString();
+    }
+
+    public void SaveProgression()
+    {
+        PlayerPrefs.SetInt("TotalPoints", totalPoint);
+        //SaveLoadManager.instance.Save("TotalPoints",0, totalPoint);
+    }
+
+    public void LoadProgression()
+    {
+        totalPoint = PlayerPrefs.GetInt("TotalPoints");
+        //SaveLoadManager.instance.Load(totalPoint, "TotalPoints", 0);
     }
 }
