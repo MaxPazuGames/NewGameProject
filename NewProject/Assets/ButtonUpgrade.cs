@@ -34,30 +34,33 @@ public class ButtonUpgrade : MonoBehaviour
 
     public void Upgrade()
     {
-        if (priseToBuy <= UpgraderManager.instance.totalPoint)
+        if (upgradeLevel < 5)
         {
-            UpgraderManager.instance.totalPoint -= priseToBuy;
-            upgradeLevel++;
-            UpdateLevel();
-            //switch (upgrades)
-            //{
-            //    case Upgrades.upgrade1:
-            //        break;
-            //    case Upgrades.upgrade2:
-            //        break;
-            //    case Upgrades.upgrade3:
-            //        break;
-            //    case Upgrades.upgrade4:
-            //        break;
-            //}
-            
-            UpgraderManager.instance.CheckPoints();
-            SaveUpgrade();
-            UpgraderManager.instance.SaveProgression();
-            UpgraderManager.instance.UpdateTotalPoint();
-            UpdateLevel();
-            priseToBuy += grovingPrise;
-            UpdatePrise();
+            if (priseToBuy <= UpgraderManager.instance.totalPoint)
+            {
+                UpgraderManager.instance.totalPoint -= priseToBuy;
+                upgradeLevel++;
+                UpdateLevel();
+                //switch (upgrades)
+                //{
+                //    case Upgrades.upgrade1:
+                //        break;
+                //    case Upgrades.upgrade2:
+                //        break;
+                //    case Upgrades.upgrade3:
+                //        break;
+                //    case Upgrades.upgrade4:
+                //        break;
+                //}
+
+                UpgraderManager.instance.CheckPoints();
+                SaveUpgrade();
+                UpgraderManager.instance.SaveProgression();
+                UpgraderManager.instance.UpdateTotalPoint();
+                UpdateLevel();
+                priseToBuy += grovingPrise;
+                UpdatePrise();
+            }
         }
     }
 
@@ -67,7 +70,14 @@ public class ButtonUpgrade : MonoBehaviour
     }
     void UpdateLevel()
     {
-        level.text = "Level: " + upgradeLevel.ToString();
+        if (upgradeLevel < 5)
+        {
+            level.text = "Level: " + upgradeLevel.ToString();
+        }
+        else
+        {
+            level.text = "Complete Upgraded";
+        }
     }
 
     void SaveUpgrade()

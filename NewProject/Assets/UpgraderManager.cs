@@ -52,13 +52,20 @@ public class UpgraderManager : MonoBehaviour
     {
         foreach (ButtonUpgrade button in upgradesButtons)
         {
-            if (button.priseToBuy > totalPoint)
+            if (button.upgradeLevel < 5)
             {
-                button.thisButton.interactable = false;
+                if (button.priseToBuy > totalPoint)
+                {
+                    button.thisButton.interactable = false;
+                }
+                else
+                {
+                    button.thisButton.interactable = true;
+                }
             }
             else
             {
-                button.thisButton.interactable = true;
+                button.thisButton.interactable = false;
             }
         }
     }
